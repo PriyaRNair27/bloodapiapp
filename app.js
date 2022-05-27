@@ -21,6 +21,33 @@ new Mongoose.Schema({
 }
 ))
 Mongoose.connect("mongodb+srv://mzcbook:807826@cluster0.2sbk9.mongodb.net/bloodDb")
+app.post("/api/deletedonor",(req,res)=>{
+    var getId=req.body
+    blood.findByIdAndRemove(getId,(error,data)=>{
+        if(error)
+        {
+            res.send({"status":"error","data":error})
+        }
+        else
+        {
+          res.send({"status":"success","data":data})
+        }
+    })
+})
+
+app.post("/api/searchdonor",(req,res)=>{
+    var getname=req.body
+    blood.find(getname,(error,data)=>{
+        if(error)
+        {
+            res.send({"status":"error","data":error})
+        }
+        else
+        {
+            res.send({"status":"success","data":data})
+        }
+    })
+})
 
 app.post("/api/bloodmanage",(req,res)=>{
 var  getname=req.body.name
